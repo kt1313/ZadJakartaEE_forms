@@ -2,40 +2,19 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Formularz</title>
+    <title>Siła hasła</title>
 </head>
 <body>
-<h1>Podaj swoje dane:</h1>
-<form>
-    action="userdata"
-    method="post"
+<h1>Podaj hasło:</h1>
+<form action="verify"    method="post">
+    <div>
     <fieldset>
-<!--        <legend>Podstawowe dane</legend>-->
-<!--        <label for="username">Nazwa użytkownika</label>-->
-<!--        <input type="text" name="username" id="username"><br>-->
+
         <label for="password">Hasło</label>
-        <input type="password" name="pass" id="password"><br>
+        <input name="pass" id="password"><br>
     </fieldset>
-<!--    <fieldset>-->
-<!--        <legend>Płeć</legend>-->
-<!--        <div>-->
-<!--            <input type="radio" name="gender" value="female" id="woman">-->
-<!--            <label for="woman">Kobieta</label>-->
-<!--        </div>-->
-<!--        <div>-->
-<!--            <input type="radio" name="gender" value="male" id="man">-->
-<!--            <label for="man">Mężczyzna<br></label>-->
-<!--        </div>-->
-<!--    </fieldset>-->
-<!--    <fieldset>-->
-<!--        <legend>Hobby</legend>-->
-<!--        <input type="checkbox" name="hobby" value="sport" id="sport">-->
-<!--        <label for="sport">Sport</label>-->
-<!--        <input type="checkbox" name="hobby" value="computers" id="computers">-->
-<!--        <label for="computers">Komputery</label>-->
-<!--        <input type="checkbox" name="hobby" value="animals" id="animals">-->
-<!--        <label for="animals">Zwierzęta</label>-->
-<!--    </fieldset>-->
+    </div>>
+
     <input type="submit" value="Sprawdź">
 </form>
 </body>

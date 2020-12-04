@@ -11,14 +11,15 @@ import java.io.PrintWriter;
 import java.lang.reflect.Array;
 
 @WebServlet("/verify")
-public class UserDataController extends HttpServlet {
+public class Password extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 //        User user = createUserFromRequest(request);
-//        sendResponse(user, response);
+        String password=request.getParameter("password");
+        sendResponse(password, response);
     }
 
-    private void checkPassword(HttpServletRequest request) {
-        String password = request.getParameter("password");
+    private void checkPassword(HttpServletRequest request, String password) {
+        //String password = request.getParameter("password");
         boolean passwordLength = password.length() > 4;
         System.out.println("Hasło zawiera conajmniej 5 znaków: " + passwordLength);
         System.out.println("Hasło zawiera conajmniej 1 małą literę: " + containsLowerCase(password));
@@ -29,8 +30,8 @@ public class UserDataController extends HttpServlet {
     }
 
     private boolean containsLowerCase(String password) {
-        char[] passwordArray = password.toCharArray();
         boolean isLowerCaseTrue = false;
+        char[] passwordArray = password.toCharArray();
         for (int i = 0; i < password.length(); i++) {
             if (Character.isLowerCase(passwordArray[i])) {
                 isLowerCaseTrue = true;
@@ -86,21 +87,30 @@ public class UserDataController extends HttpServlet {
         return passwordStrenght;
     }
 
-    private void sendResponse(User user, HttpServletResponse response) throws IOException {
+    private void sendResponse( String password, HttpServletResponse response) throws IOException {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html");
         PrintWriter writer = response.getWriter();
         writer.println("<html>");
         writer.println("<body>");
-        writer.print("<h2>Dane odebrano pomyślnie</h2>");
+        writer.print("<h2>Twoje hasło to: </h2>"+ password);
         writer.print("<div>");
-        writer.println(user.getUsername() + "<br>");
-        writer.println(user.getPassword() + "<br>");
-        writer.println(user.getGender() + "<br>");
-        if (user.getHobby() != null) {
-            writer.print("Hobby: <br>");
-            for (String hobby : user.getHobby())
-                writer.println(" " + hobby + "<br>");
+        int passwordStrenght=0;
+        if (password.length()>4){passwordStrenght=+25;}else {
+            writer.println("Hasło powinno być minimum 5 znakowe.");
+        }
+        if (containsLowerCase(password)){passwordStrenght=+25;} else {
+            writer.println("Hasło powinno zawierać minimum 1 małą literę");
+        }
+        if (containsUpperCase(password)){passwordStrenght=+25;}else {
+            writer.println("Hasło powinno zawierać minimum 1 dużą literę");
+        }
+        if (containsDigit(password)){passwordStrenght=+25;}else {
+            writer.println("Hasło powinno zawierać minimum 1 cyfrę");
+        }
+        writer.println("Siła hasła to: "+ passwordStrenght + "%");
+        if (passwordStrenght==100){
+            writer.println("Hasło spełnia warunki");
         }
         writer.print("</div>");
         writer.println("</body>");
